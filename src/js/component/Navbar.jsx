@@ -12,9 +12,8 @@ export const Navbar = () => {
 				</div>
 
 				<div className="col-4 text-center">
-					<Link to="/characters" className="nav-item nav-link link-body-emphasis active">
-						{/* <span className="navbar-brand mb-0 h1">React Boilerplate</span> */}
-						<img id="local-nav-logo-desktop" src="https://lumiere-a.akamaihd.net/v1/images/sw_logo_stacked_2x-52b4f6d33087_7ef430af.png" style={{ width: "50%" }} alt="Home" />
+					<Link to="/" className="nav-item nav-link link-body-emphasis active">					
+						<img id="local-nav-logo-desktop" src="https://lumiere-a.akamaihd.net/v1/images/sw_logo_stacked_2x-52b4f6d33087_7ef430af.png" style={{ width: "220px" }} alt="Logo StarWars" />
 					</Link>
 				</div>
 

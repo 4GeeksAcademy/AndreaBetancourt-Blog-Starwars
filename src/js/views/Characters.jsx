@@ -6,9 +6,8 @@ import { Context } from "../store/appContext.js";
 export const Characters = () => {
 
     const { store, actions } = useContext(Context)
-    
-
-    const [characters, setCharacters] = useState(JSON.parse(localStorage.getItem('characters')));
+    const characters = JSON.parse(localStorage.getItem('characters'))
+    console.log(characters)
 
     return (
         <div className="container">
@@ -22,16 +21,14 @@ export const Characters = () => {
 
                         return (
                             <div className="col" key={index}>
-                                <div className="card shadow-sm">
+                                <div className="card">
                                     <img src={urlImg} className="rounded-t-lg border-b border-white" onError={handleOnErrorImg} />
                                     <div className="card-body bg-black text-white">
-                                        <h5 className="card-title">{characters.name}</h5>
-                                        {/* <p className="card-text"> Gender: {charactersPropieties.result.properties.gender} </p> */}
-                                        <p className="card-text"> Hair Color: </p>
-                                        <p className="card-text"> Eye Color: </p>
                                         
+                                        <h5 className="card-title">{characters.name}</h5>
+
                                         <div className="d-flex justify-content-between">
-                                            <Link to={`/characters/${characters.id}`}>
+                                            <Link to={`/characters/${characters.uid}`}>
                                                 <button type="button" className="btn btn-sm btn-outline-light">Learn more</button>
                                             </ Link>
                                             <button className="btn btn-sm btn-outline-warning" onClick={() => actions.addFavorite(characters.name)}>
@@ -49,3 +46,4 @@ export const Characters = () => {
 
     );
 }
+
