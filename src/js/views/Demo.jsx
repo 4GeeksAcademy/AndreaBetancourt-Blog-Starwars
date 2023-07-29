@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react"; //1. Importar useContext
 import { Link } from "react-router-dom";
 
-import { Context } from "../store/appContext";
+import { Context } from "../store/appContext";	//2. Importar el context desde donde esta definido
 
 import "../../styles/demo.css";
 
 export const Demo = () => {
-	const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context); //3. Ejecutar useContext y desestructurarlo en store y actions(vienen del flux)
 
 	return (
 		<div className="container">
@@ -41,3 +41,5 @@ export const Demo = () => {
 		</div>
 	);
 };
+
+//NOTA: La ruta al demo esta inactiva porque la quite del Navbar para reemplazar por el bnt de favoritos
