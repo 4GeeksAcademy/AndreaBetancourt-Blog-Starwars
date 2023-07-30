@@ -14,6 +14,7 @@ export const CharactersDetails = () => {
     const charactersView = JSON.parse(localStorage.getItem('characters'));
     const charactersArr = charactersView.results;
     const url = charactersArr[id].url
+    console.log(store.characters[id])
 
     const [people, setPeople] = useState([]);
 
@@ -48,23 +49,23 @@ export const CharactersDetails = () => {
         <div className="container" style={{maxWidth: '50%'}}>
             <div className="card bg-black border-light mb-3 text-white">
                 <div className="row g-0">
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <img src={urlImage} className="img-fluid rounded-start" alt="..." onError={handleOnErrorImg}/>
                     </div>
-                    <div className="col">
+                    <div className="col d-flex flex-column justify-content-between m-4">
                         <div className="card-body">
-                            <h2 className="card-title">{people.name}</h2>
-                            <p className="card-text m-1"><strong>Gender: </strong>{people.gender}</p>
-                            <p className="card-text m-1"><strong>Birth Year: </strong> {people.birth_year}</p>
-                            <p className="card-text m-1"><strong>Hair Color: </strong> {people.hair_color}</p>
-                            <p className="card-text m-1"><strong>Eye Color: </strong> {people.eye_color}</p>
-                            <p className="card-text m-1"><strong>Height: </strong> {people.height}</p>
-
-                            <Link to={`/characters`}>
-                                <button type="button" class="btn btn-outline-warning">Back Home</button>
-                            </Link>
-
+                            <h2 className="card-title m-2">{people.name}</h2>
+                            <p className="card-text m-2"><strong>Gender: </strong>{people.gender}</p>
+                            <p className="card-text m-2"><strong>Birth Year: </strong> {people.birth_year}</p>
+                            <p className="card-text m-2"><strong>Hair Color: </strong> {people.hair_color}</p>
+                            <p className="card-text m-2"><strong>Eye Color: </strong> {people.eye_color}</p>
+                            <p className="card-text m-2"><strong>Height: </strong> {people.height}</p>
                         </div>
+                        <div className="d-flex justify-content-end">
+                            <Link to={`/characters`}>
+                                <button type="button" className="btn btn-outline-warning">Back Home</button>
+                            </Link>
+                        </div>    
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			favorites: [],
 			characters: [],
-			// planets: [],
+			planets: [],
 			// starships: [],
 		},
 		actions: {
@@ -30,34 +30,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getCharacters: async () => {
 
-				if(localStorage.getItem('characters') === null){
+				if(localStorage.getItem('characters') !== null){
+					// Si los datos de los characters están en el almacenamiento local, obtén los datos de allí
+					const charactersFromStorage = JSON.parse(localStorage.getItem('characters'));
+						// Actualiza el estado de 'characters[]' en el store
+					setStore({ characters: charactersFromStorage.results});
+
+				} else {
+					// Si no entonces realiza la solicitud a la API
 					const response = await fetch('https://www.swapi.tech/api/people');
 
 					if(response.ok) {
 
 						const data = await response.json();
 						localStorage.setItem('characters', JSON.stringify(data))
+						setStore({ characters: data.results });
+						
 					} else {
 						console.log('Error: ', response.status, response.statusText)
-					}
+					}	
 				}
 				
 			},
 
 			getPlanets: async () => {
-
-				if (localStorage.getItem('planets') === null) {
-
-					const response = await fetch('https://www.swapi.tech/api/planets');
-
-					if (response.ok) {
-						const data = await response.json();
-						localStorage.setItem('planets', JSON.stringify(data))
-					} else {
-						console.log('Error: ', response.status, response.statusText)
-					}
+				if (localStorage.getItem('planets') !== null) {
+					// Si los datos de los planetas están en el almacenamiento local, obtén los datos de allí
+					const planetsFromStorage = JSON.parse(localStorage.getItem('planets'));
+				  	setStore({ planets: planetsFromStorage.results });
+				
+				} else {
+					// Si no entonces que haga el fetch
+				  const response = await fetch('https://www.swapi.tech/api/planets');
+		
+				  if (response.ok) {
+					const data = await response.json();
+					localStorage.setItem('planets', JSON.stringify(data));
+		
+					// Actualiza el estado del store con los datos de los planetas obtenidos
+					setStore({ planets: data.results });
+				  } else {
+					console.log('Error: ', response.status, response.statusText);
+				  }
+				  
 				}
-			},
+			},		
 
 			getStarships: async () => {
 

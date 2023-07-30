@@ -6,15 +6,14 @@ import { Context } from "../store/appContext.js";
 export const Characters = () => {
 
     const { store, actions } = useContext(Context)
-    const characters = JSON.parse(localStorage.getItem('characters'))
-    console.log(characters)
+    console.log(store.characters)
 
     return (
         <div className="container">
             <div className="row row-cols-1 row-cols-md-3 row-cols-xl-5 g-3">
-                {!characters ?
+                {!store.characters ?
                     <Spinner /> :
-                    characters.results.map((characters, index) => {
+                    store.characters.map((characters, index) => {
 
                         const urlImg = "https://starwars-visualguide.com/assets/img/characters/" + (index + 1) + ".jpg";
                         const handleOnErrorImg = e => { e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg" }
