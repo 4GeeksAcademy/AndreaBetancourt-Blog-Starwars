@@ -10,18 +10,26 @@ export const CharactersDetails = () => {
 
     //Los parametros son los definidos en el layaut con users/:userId
     const params = useParams();
-    const id = params.charactersId - 1; //Se resta 1 porque el array inicia en posicion 0
+    // const id = params.charactersId - 1; //Se resta 1 porque el array inicia en posicion 0
+    const idPeople = params.charactersId;
     const charactersView = JSON.parse(localStorage.getItem('characters'));
     const charactersArr = charactersView.results;
-    const url = charactersArr[id].url
-    console.log(store.characters[id])
+    // const url = charactersArr[id].url
+
+    const charactersDetails = charactersArr.filter((element => {
+        
+        return( idPeople === element.uid)
+
+    }));
+
+    const url2 = charactersDetails[0].url;
 
     const [people, setPeople] = useState([]);
 
     const getCharactersDetails = async () => {
 
         try {
-            const response = await fetch(url);
+            const response = await fetch(url2);
 
             if (response.ok) {
 
@@ -39,11 +47,11 @@ export const CharactersDetails = () => {
 
     useEffect(() => {
         getCharactersDetails();
-    }, []);
+    }, [url2]);
     console.log(people)
 
-    const urlImage = "https://starwars-visualguide.com/assets/img/characters/" + (id + 1) + ".jpg";
-    const handleOnErrorImg = (e) => { e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg" };
+    const urlImage = "https://starwars-visualguide.com/assets/img/characters/" + (idPeople) + ".jpg";
+    const handleOnErrorImg = (e) => { e.target.src = "https://star-wars-blog-sandy.vercel.app/star_wars_404.png" };
 
     return (
         <div className="container" style={{maxWidth: '50%'}}>
@@ -60,6 +68,7 @@ export const CharactersDetails = () => {
                             <p className="card-text m-2"><strong>Hair Color: </strong> {people.hair_color}</p>
                             <p className="card-text m-2"><strong>Eye Color: </strong> {people.eye_color}</p>
                             <p className="card-text m-2"><strong>Height: </strong> {people.height}</p>
+                            <p className="card-text m-2"><strong>Name: </strong> {people.name}</p>
                         </div>
                         <div className="d-flex justify-content-end">
                             <Link to={`/characters`}>

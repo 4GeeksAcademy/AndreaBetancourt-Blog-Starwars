@@ -6,7 +6,7 @@ import { Context } from "../store/appContext.js";
 export const Characters = () => {
 
     const { store, actions } = useContext(Context)
-    console.log(store.characters)
+    console.log(store.characters);
 
     return (
         <div className="container">
@@ -20,19 +20,24 @@ export const Characters = () => {
 
                         return (
                             <div className="col" key={index}>
-                                <div className="card">
-                                    <img src={urlImg} className="rounded-t-lg border-b border-white" onError={handleOnErrorImg} />
-                                    <div className="card-body bg-black text-white">
-                                        
+                                <div className="card border-white">
+                                    <img src={urlImg} className="card-img-top" onError={handleOnErrorImg} style={{ objectFit: 'cover', }} />
+                                    <div className="card-footer pb-3 bg-black text-white">
+
                                         <h5 className="card-title">{characters.name}</h5>
 
                                         <div className="d-flex justify-content-between">
                                             <Link to={`/characters/${characters.uid}`}>
                                                 <button type="button" className="btn btn-sm btn-outline-light">Learn more</button>
                                             </ Link>
-                                            <button className="btn btn-sm btn-outline-warning" onClick={() => actions.addFavorite(characters.name)}>
-                                                <i className="fas fa-heart"></i>
-                                            </button>
+                                            {store.favorites.includes(characters.name) ?
+                                                <button className="btn btn-sm btn-warning" onClick={() => actions.removeFavorite(characters.name)}>
+                                                    <i className="fas fa-heart"></i>
+                                                </button>
+                                                : <button className="btn btn-sm btn-outline-warning" onClick={() => actions.addFavorite(characters.name)}>
+                                                    <i className="fas fa-heart"></i>
+                                                </button>
+                                            }
                                         </div>
                                     </div>
                                 </div>
